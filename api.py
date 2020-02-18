@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import shutil
 
 class PixabayAPI:
   def __init__(self, key, carpeta_imagenes):
@@ -14,6 +15,10 @@ class PixabayAPI:
     # Hago la request y parseo el JSON que viene como respuesta
     response = requests.get(url)
     jsonResponse = json.loads(response.text)
+
+    if os.path.isdir(self.carpeta_imagenes):
+      shutil.rmtree(self.carpeta_imagenes)
+    os.mkdir(self.carpeta_imagenes)
 
     # La respuesta tiene esta pinta:
     # {
